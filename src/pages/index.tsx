@@ -4,18 +4,14 @@ import { Flex } from "@chakra-ui/react";
 import { Header, List, Map } from "@/components";
 import { getPlacesData } from "./api/restaurants";
 
-const places = [
-  { name: "Restaurante 1" },
-  { name: "Restaurante 2" },
-  { name: "Restaurante 3" },
-];
-
 const Home = () => {
+  const [places, setPlaces] = useState([]);
   const [coordinates, setCoordinates] = useState({
     lat: -23.5489,
     lng: -46.6388,
   });
   const [autoCoordinates, setAutoCoordinates] = useState({});
+  const [bounds, setBounds] = useState({ ne: null, sw: null });
   const [foodType, setFoodType] = useState("restaurants");
   const [ratings, setRatings] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -31,10 +27,13 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     getPlacesData().then((data) => {
       console.log("🚀 ~ file: index.tsx:35 ~ getPlacesData ~ data:", data);
+      setPlaces(data);
+      setIsLoading(false);
     });
-  }, []);
+  }, [coordinates, bounds]);
 
   return (
     <Flex
@@ -48,14 +47,18 @@ const Home = () => {
       bg={""}
     >
       <Header
-        setFoodType={setFoodType}
         setRatings={setRatings}
+        setFoodType={setFoodType}
         setCoordinates={setCoordinates}
       />
 
       <List places={places} isLoading={isLoading} />
 
-      <Map coordinates={coordinates} setCoordinates={setCoordinates} />
+      <Map
+        setBounds={setBounds}
+        coordinates={coordinates}
+        setCoordinates={setCoordinates}
+      />
     </Flex>
   );
 };

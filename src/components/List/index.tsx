@@ -56,8 +56,8 @@ const List = ({ isLoading, places }: ListProps) => {
     >
       <Flex flex={1} overflow={"scroll"} mt={16} direction={"column"}>
         {places &&
-          places.map((place, index) => (
-            <PlaceDetail key={index} place={place} />
+          places.map((place: any, index: number) => (
+            <PlaceDetail key={index} place={place.attributes} />
           ))}
       </Flex>
     </Flex>

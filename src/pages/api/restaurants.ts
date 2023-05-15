@@ -15,7 +15,7 @@
 import axios from "axios";
 
 export const getPlacesData = async () => {
-  const url = "https://restaurant-list.onrender.com/api/restaurants";
+  const url = "https://restaurant-list.onrender.com/api/restaurants?populate=*";
   try {
     const {
       data: { data },

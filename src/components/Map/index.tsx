@@ -11,6 +11,12 @@ type CoordinateProps = {
 
 interface MapProps {
   coordinates: CoordinateProps;
+  setBounds: Dispatch<
+    SetStateAction<{
+      ne: null;
+      sw: null;
+    }>
+  >;
   setCoordinates: Dispatch<
     SetStateAction<{
       lat: number;
@@ -19,7 +25,7 @@ interface MapProps {
   >;
 }
 
-const Map = ({ coordinates, setCoordinates }: MapProps) => {
+const Map = ({ coordinates, setCoordinates, setBounds }: MapProps) => {
   console.log("🚀 ~ file: index.tsx:15 ~ Map ~ coordinates:", setCoordinates);
   return (
     <Box width={"full"} height={"full"}>
@@ -30,7 +36,10 @@ const Map = ({ coordinates, setCoordinates }: MapProps) => {
         defaultZoom={10}
         margin={[50, 50, 50, 50]}
         options={undefined}
-        onChange={() => console.log("change")}
+        onChange={(event: any) => {
+          setCoordinates({ lat: event.center.lat, lng: event.center.lng });
+          setBounds({ ne: event.marginBounds.ne, sw: event.marginBounds.sw });
+        }}
         onChildClick={() => console.log("child")}
       ></GoogleMap>
     </Box>
