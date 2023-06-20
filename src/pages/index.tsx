@@ -55,6 +55,7 @@ const Home = () => {
       <List places={places} isLoading={isLoading} />
 
       <Map
+        places={places}
         setBounds={setBounds}
         coordinates={coordinates}
         setCoordinates={setCoordinates}

@@ -2,8 +2,12 @@ import React, { useMemo } from "react";
 import { Flex, Skeleton, Stack, Text } from "@chakra-ui/react";
 import PlaceDetail from "../PlaceDetail";
 
-type PlaceProps = {
-  name: string;
+export type PlaceProps = {
+  attributes: {
+    name: string;
+    latitude: string;
+    longitude: string;
+  };
 }[];
 
 interface ListProps {
